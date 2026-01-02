@@ -6,7 +6,7 @@ function CryptoCards({crypto}) {
         {/* CRYPTO HEADER */}
         <div className='flex items-center justify-center gap-2'>
         <img src={crypto.image} alt="A crypto image" className='w-10 h-10'/>
-        <div className="flex flex-col justify-center items-start">
+        <div className="flex flex-col justify-center items-start gap-1">
             <p>{crypto.name}</p>
             <p>({crypto.symbol.toUpperCase()})</p>
             <p className='bg-blue-600 px-3 py-1 rounded-full text-[10px]'>#{crypto.market_cap_rank}</p>

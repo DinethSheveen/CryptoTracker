@@ -55,7 +55,7 @@ function Home() {
         {loading && <Loading/>}
 
         {/* CRYPTOS */}
-        <div className='mt-10 grid grid-cols-1 gap-4 mx-auto px-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:max-w-290 lg:mx-auto'>
+        <div className={layout==="grid"?`mt-10 grid grid-cols-1 gap-4 mx-auto px-8 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:max-w-290 lg:mx-auto`:`mt-10 grid-cols-1 max-w-190 mx-auto gap-4`}>
 
         {
           cryptos && cryptos.map((crypto)=>{

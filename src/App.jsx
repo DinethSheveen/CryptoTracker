@@ -7,7 +7,7 @@ function App() {
     <div className="bg-black text-white">
       <Routes>
         <Route path="/" element={<Home/>}></Route>  
-        <Route path="/Crypto-coin/:coinId" element={<Coin/>}></Route>  
+        <Route path="/crypto-coin/:coinId" element={<Coin/>}></Route>  
       </Routes> 
     </div>
   )

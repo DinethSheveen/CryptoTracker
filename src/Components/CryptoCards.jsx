@@ -17,7 +17,7 @@ function CryptoCards({crypto}) {
         <p className='font-bold text-2xl'>${crypto.current_price<0.01?crypto.current_price:crypto.current_price.toFixed(2)}</p>
 
         {/* CRYPTO CHANGE */}
-        <p className={crypto.price_change_percentage_24h > 0 ? "text-green-300 bg-green-700 px-2 py-1 rounded-full" : "text-red-300 bg-red-700 px-2 py-1 rounded-full"}>{crypto.price_change_percentage_24h > 0 ? "+" : ""}{crypto.price_change_percentage_24h.toFixed(2)}%</p>
+        <p className={crypto.price_change_percentage_24h > 0 ? "text-green-300 bg-green-700 px-2 py-1 rounded-full" : "text-red-300 bg-red-700 px-2 py-1 rounded-full"}>{crypto.price_change_percentage_24h > 0 ? "+" : ""}{crypto.price_change_percentage_24h && crypto.price_change_percentage_24h.toFixed(2)}%</p>
         
         <hr className='text-gray-500 w-full'/>
 

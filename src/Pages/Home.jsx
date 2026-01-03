@@ -9,6 +9,7 @@ function Home() {
   const [cryptos, setCryptos] = useState(null)
   const [layout, setLayout] = useState("grid")
   const [loading, setLoading] = useState(false)
+  const [sortType, setSortType] = useState("")
 
   const API_KEY = import.meta.env.VITE_API_KEY
 
@@ -29,6 +30,40 @@ function Home() {
     fetchCrypto() 
   },[])
 
+  useEffect(() => {
+  if (!cryptos) return;
+
+  let sorted = [...cryptos];
+
+  switch (sortType) {
+    case "Rank":
+      sorted.sort((a, b) => a.market_cap_rank - b.market_cap_rank);
+      break;
+
+    case "Name":
+      sorted.sort((a, b) => a.id.localeCompare(b.id));
+      break;
+
+    case "Price change 24h":
+      sorted.sort((a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h);
+      break;
+
+    case "Price (low to high)":
+      sorted.sort((a, b) => a.current_price - b.current_price);
+      break;
+
+    case "Price (high to low)":
+      sorted.sort((a, b) => b.current_price - a.current_price);
+      break;
+
+    default:
+      break;
+  }
+
+  setCryptos(sorted); 
+}, [sortType]);
+
+
   return (
     <div className='min-h-screen'>
       <Navbar/>
@@ -39,8 +74,10 @@ function Home() {
           <div className='flex items-center justify-center gap-2'>
             <p>Sort by :</p>
         
-            <select className='bg-gray-900 p-1 rounded-[10px]'>
+            <select className='bg-gray-900 p-1 rounded-[10px]' onChange={(e)=>{setSortType(e.target.value)}}>
               <option value="Rank">Rank</option>
+              <option value="Name">Name</option>
+              <option value="Price change 24h">Price change 24h</option>
               <option value="Price (low to high)">Price (low to high)</option>
               <option value="Price (high to low)">Price (high to low)</option>
             </select>
@@ -55,15 +92,17 @@ function Home() {
         {loading && <Loading/>}
 
         {/* CRYPTOS */}
-        <div className={layout==="grid"?`mt-10 grid grid-cols-1 gap-4 mx-auto px-8 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:max-w-290 lg:mx-auto`:`mt-10 grid-cols-1 max-w-190 mx-auto gap-4`}>
+        <div className='h-110 mt-10 overflow-scroll md:h-170 lg:h-210 2xl:h-350'>
+          <div className={`px-4 mx-auto grid ${layout==="grid"?` grid grid-cols-1 gap-4 mx-auto xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:max-w-290 lg:mx-auto`:`grid-cols-1 max-w-190 mx-auto gap-4`}`}>
 
-        {
-          cryptos && cryptos.map((crypto)=>{
-            return (
-              <CryptoCards crypto={crypto} key={crypto.id}/>
-            )
-          })
-        }
+          {
+            cryptos && cryptos.map((crypto)=>{
+              return (
+                <CryptoCards crypto={crypto} key={crypto.id}/>
+              )
+            })
+          }
+          </div>
         </div>
       </div>
     </div>

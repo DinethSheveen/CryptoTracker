@@ -6,19 +6,23 @@ import Loading from '../Components/Loading'
 
 function Home() {
 
-  const [cryptos, setCryptos] = useState(null)
+  const [allCryptos, setAllCryptos] = useState([])
+  const [cryptos, setCryptos] = useState([])
   const [layout, setLayout] = useState("grid")
   const [loading, setLoading] = useState(false)
   const [sortType, setSortType] = useState("")
+  const [searchCrypto, setSearchCrypto] = useState("")
 
   const API_KEY = import.meta.env.VITE_API_KEY
 
+  // FETCH CRYPTO DATA
   useEffect(()=>{
     const fetchCrypto = async()=>{
       try {
         setLoading(true)
         const response = await axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&x_cg_demo_api_key=${API_KEY}`)
-        setCryptos(response.data);
+        setAllCryptos(response.data);     // Store original data for sorting reference
+        setCryptos(response.data);    // Store data to be displayed
         console.log(response.data);
       } catch (error) {
         console.log(error.message);
@@ -30,43 +34,61 @@ function Home() {
     fetchCrypto() 
   },[])
 
+  // SORTING LOGIC
   useEffect(() => {
-  if (!cryptos) return;
+    if (!cryptos) return;
 
-  let sorted = [...cryptos];
+    let sorted = [...allCryptos];
 
-  switch (sortType) {
-    case "Rank":
-      sorted.sort((a, b) => a.market_cap_rank - b.market_cap_rank);
-      break;
+    switch (sortType) {
+      case "Rank":
+        sorted.sort((a, b) => a.market_cap_rank - b.market_cap_rank);
+        break;
 
-    case "Name":
-      sorted.sort((a, b) => a.id.localeCompare(b.id));
-      break;
+      case "Name":
+        sorted.sort((a, b) => a.id.localeCompare(b.id));
+        break;
 
-    case "Price change 24h":
-      sorted.sort((a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h);
-      break;
+      case "Price change 24h":
+        sorted.sort((a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h);
+        break;
 
-    case "Price (low to high)":
-      sorted.sort((a, b) => a.current_price - b.current_price);
-      break;
+      case "Price (low to high)":
+        sorted.sort((a, b) => a.current_price - b.current_price);
+        break;
 
-    case "Price (high to low)":
-      sorted.sort((a, b) => b.current_price - a.current_price);
-      break;
+      case "Price (high to low)":
+        sorted.sort((a, b) => b.current_price - a.current_price);
+        break;
 
-    default:
-      break;
-  }
-
+      default:
+        break;
+    }
   setCryptos(sorted); 
-}, [sortType]);
+}, [sortType]);  
 
+  // SEARCH LOGIC
+  useEffect(()=>{
+    if (!searchCrypto){
+      setCryptos(allCryptos)
+      return
+    }
+
+    const data = [...allCryptos];
+
+    const filteredCryptos = data.filter((crypto)=>crypto.id.toLowerCase().includes(searchCrypto.toLowerCase()) || crypto.symbol.toLowerCase().includes(searchCrypto.toLocaleLowerCase()))
+
+    if(filteredCryptos.length===0 || searchCrypto===""){
+      setCryptos(cryptos)
+      return
+    }
+
+    setCryptos(filteredCryptos)
+  }, [searchCrypto])
 
   return (
     <div className='min-h-screen'>
-      <Navbar/>
+      <Navbar searchCrypto={searchCrypto} setSearchCrypto={setSearchCrypto}/>
 
       <div className="home pt-40 sm:pt-30">
         <div className="flex justify-center items-center max-w-190 mx-auto gap-7 flex-wrap">

@@ -1,10 +1,15 @@
 import { MdOutlineCurrencyExchange } from "react-icons/md";
-
+import Input from "./Input";
+import { Link, useLocation } from "react-router-dom";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 function Navbar({searchCrypto, setSearchCrypto}) {
 
+    const location = useLocation();
+    const isHomePage = location.pathname === "/";
+
   return (
-    <div className='navbar fixed top-0 w-full bg-transparent backdrop-blur-lg py-2'>
+    <div className='navbar fixed top-0 w-full bg-transparent backdrop-blur-lg p-2'>
         {/* POSITION CONTAINER */}
         <div className="flex flex-col justify-between items-center gap-2 max-w-190 mx-auto sm:flex-row sm:gap-18">
             {/* LOGO */}
@@ -20,7 +25,14 @@ function Navbar({searchCrypto, setSearchCrypto}) {
             </div>
         
             {/* SEARCH BOX */}
-            <input type="text" placeholder="Search cryptocurrencies..." value={searchCrypto} className="flex-1 bg-gray-900 p-2 rounded-2xl placeholder:px-2 shadow-lg shadow-gray-800" onChange={(e)=>{setSearchCrypto(e.target.value)}}/>
+            {isHomePage?
+            <Input searchCrypto={searchCrypto} setSearchCrypto={setSearchCrypto}/>
+            :
+            <Link to="/" className="bg-gray-900 p-2 rounded-2xl px-4 shadow-lg shadow-gray-800 flex items-center gap-2">
+                <IoIosArrowRoundBack className="text-2xl"/>
+                Back to list
+            </Link>
+            }
         </div>
     </div>
   )

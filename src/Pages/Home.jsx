@@ -96,7 +96,7 @@ function Home() {
           <div className='flex items-center justify-center gap-2'>
             <p>Sort by :</p>
         
-            <select className='bg-gray-900 p-1 rounded-[10px]' onChange={(e)=>{setSortType(e.target.value)}}>
+            <select className='bg-gray-900 p-1 rounded-[10px] cursor-pointer' onChange={(e)=>{setSortType(e.target.value)}}>
               <option value="Rank">Rank</option>
               <option value="Name">Name</option>
               <option value="Price change 24h">Price change 24h</option>
@@ -106,15 +106,15 @@ function Home() {
           </div>
           {/* LAYOUT SELECTION */}
           <div className='flex gap-2'>
-            <div className={`px-4 py-1 rounded-[5px] transition-all duration-350 ${layout==="grid"?"bg-blue-600":"bg-gray-800"}`} onClick={()=>{setLayout("grid")}}>Grid</div>
-            <div className={`px-4 py-1 rounded-[5px] transition-all duration-350 ${layout==="list"?"bg-blue-600":"bg-gray-800"}`} onClick={()=>{setLayout("list")}}>List</div>
+            <div className={`px-4 py-1 rounded-[5px] transition-all duration-350 cursor-pointer ${layout==="grid"?"bg-blue-600":"bg-gray-800"}`} onClick={()=>{setLayout("grid")}}>Grid</div>
+            <div className={`px-4 py-1 rounded-[5px] transition-all duration-350 cursor-pointer ${layout==="list"?"bg-blue-600":"bg-gray-800"}`} onClick={()=>{setLayout("list")}}>List</div>
           </div>
         </div>
 
         {loading && <Loading/>}
 
         {/* CRYPTOS */}
-        <div className='h-110 mt-10 overflow-scroll md:h-170 lg:h-210 2xl:h-350'>
+        <div className='h-110 mt-10 overflow-scroll scrollbar-hide md:h-170 lg:h-210 2xl:h-350'>
           <div className={`px-4 mx-auto grid ${layout==="grid"?` grid grid-cols-1 gap-4 mx-auto xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:max-w-290 lg:mx-auto`:`grid-cols-1 max-w-190 mx-auto gap-4`}`}>
 
           {

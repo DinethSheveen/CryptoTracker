@@ -33,10 +33,10 @@ A modern cryptocurrency price tracker web application built with React and Vite 
 ##  📸 Screenshots
 
 ### 🏠 Home
-![HomePage]("/public/home.png")
+![HomePage](/public/home.png)
 
 ### CoinPage
-![CoinPage]("/public/coin.png)
+![CoinPage](/public/coin.png)
 
 ## 🧩 Usage
 

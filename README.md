@@ -59,7 +59,7 @@ Add your key:
 
 ```bash
 
-VITE_CRYPTO_API_KEY=your_api_key_here
+VITE_API_KEY=your_api_key_here
 
 ```
 

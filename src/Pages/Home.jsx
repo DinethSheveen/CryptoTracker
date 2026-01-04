@@ -115,7 +115,7 @@ function Home() {
 
         {/* CRYPTOS */}
         <div className='h-110 mt-10 overflow-scroll scrollbar-hide md:h-170 lg:h-210 2xl:h-350'>
-          <div className={`px-4 mx-auto grid ${layout==="grid"?` grid grid-cols-1 gap-4 mx-auto xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:max-w-290 lg:mx-auto`:`grid-cols-1 max-w-190 mx-auto gap-4`}`}>
+          <div className={`px-4 py-3 mx-auto grid ${layout==="grid"?` grid grid-cols-1 gap-4 mx-auto xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:max-w-290 lg:mx-auto`:`grid-cols-1 max-w-190 mx-auto gap-4`}`}>
 
           {
             cryptos && cryptos.map((crypto)=>{

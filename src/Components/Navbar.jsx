@@ -9,7 +9,7 @@ function Navbar({searchCrypto, setSearchCrypto}) {
     const isHomePage = location.pathname === "/";
 
   return (
-    <div className='navbar fixed top-0 w-full bg-transparent backdrop-blur-lg p-2'>
+    <div className='navbar fixed top-0 w-full bg-transparent backdrop-blur-lg p-2 z-10'>
         {/* POSITION CONTAINER */}
         <div className="flex flex-col justify-between items-center gap-2 max-w-190 mx-auto sm:flex-row sm:gap-18">
             {/* LOGO */}
